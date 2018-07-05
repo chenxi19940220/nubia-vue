@@ -44,3 +44,7 @@ src/views   所有的单页面
 
 ## 商品加入购物车
 
+新增store文件夹，新增文件index.js
+
+> src/store/index.js
+
