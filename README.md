@@ -94,3 +94,22 @@ let store = new Vuex.Store({
   }
 })
 ```
+
+> src/components/shop-item.vue
+
+```
+export default {
+  methods: {
+    tableIndex (index) {
+      this.itemIndex = index
+    },
+    addCarPanelHandle (data) {
+      return this.$store.commit('addCarPanelDate', data)
+    }
+  }
+}
+
+<span class="item-blue-btn" @click="addCarPanelHandle(item.sku_info[itemIndex])">加入购物车 </span>
+```
+
+
