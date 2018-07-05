@@ -591,4 +591,31 @@ export default {
 }
 ```
 
+> src/store/index.js
+
+```
+let store = new Vuex.Store({
+  state: {
+    carshow: false,
+    carTimer: null
+  },
+  mutations: {
+    showCar (state) {
+      clearTimeout(state.carTimer)
+      state.carShow = true
+    },
+    hideCar (state) {
+      state.carTimer = setTimeout(() => {
+        state.carShow = false
+      }, 1000)
+    }
+  }
+})
+```
+
+> src/components/car-panel.vue
+
+```
+
+```
 
