@@ -6,24 +6,24 @@
 > 搭建环境
 
 ```
-cnpm install --global vue-cli     
+cnpm install --global vue-cli  全局安装vue-cli
 
-vue init
+vue init  初始化vue
 
-vue init webpack my-project
+vue init webpack my-project  创建项目
 
-cnpm install
+cnpm install  安装项目依赖
 
-cnpm install vuex --save
+cnpm install vuex --save  安装vuex
 ```
 
 > 文件目录
 
 src
 
-src/assets  样式文件和图片
-src/assets/css   
-src/assets/img   
+src/assets    样式文件和图片
+- src/assets/css   
+- src/assets/img   
 
 src/components   组件
 
