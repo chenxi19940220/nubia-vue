@@ -257,6 +257,9 @@ export default {
     <span class="price-icon">¥</span>
     <span ng-bind="cartMenu.totalPrice" class="price-num ng-binding">{{total}}</span>
 </h5>
+
+<span class="price-num">{{item.price}}</span>
+<span class="item-num">x {{item.count}}</span>
 ```
 
 
