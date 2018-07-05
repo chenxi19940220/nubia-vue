@@ -48,3 +48,24 @@ src/views   所有的单页面
 
 > src/store/index.js
 
+```
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+
+let store = new Vuex.Store({})
+
+export default store
+```
+
+main.js
+
+```
+import store from './store'
+
+new Vue({
+  store
+})
+```
+
