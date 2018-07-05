@@ -558,5 +558,23 @@ let store = new Vuex.Store({
 > src/components/prompt.vue
 
 ```
+export default {
+  name: 'prompt',
+  computed: {
+    maxOff () {
+      return this.$store.state.maxOff
+    }
+  },
+  methods: {
+    closePrompt () {
+      this.$store.commit('closePrompt')
+    }
+  }
+}
 
+<a @click="closePrompt">确定</a>
+
+<span class="dialog-close png" @click="closePrompt"></span>
 ```
+
+
