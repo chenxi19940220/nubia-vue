@@ -213,4 +213,28 @@ export default {
 
 <span>{{item.spec_json.show_name}}</span>
 ```
+
+> src/store/index.js
+
 ```
+let store = new Vuex.Store({
+  getters: {
+    totalCount (state) {
+      let count = 0
+      state.carPanelData.forEach((goods) => {
+        count += goods.count
+      })
+      return count
+    },
+    totalPrice (state) {
+      let price = 0
+      state.carPanelData.forEach((goods) => {
+        price += goods.count * goods.price
+      })
+      return price
+    }
+  }
+})
+```
+
+
