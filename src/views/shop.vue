@@ -8,12 +8,14 @@
             </div>
         </div>
     </div>
+    <prompt></prompt>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
 import shopItem from '@/components/shop-item'
+import prompt from '@/components/prompt'
 
 export default {
   data () {
@@ -22,7 +24,8 @@ export default {
     }
   },
   components: {
-    shopItem
+    shopItem,
+    prompt
   },
   created: function () {
     axios.get('https://www.easy-mock.com/mock/5b3cccfe3a326b5fcb8dca26/nubia-vue/newGoodsData')

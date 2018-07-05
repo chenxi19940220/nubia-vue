@@ -1,7 +1,7 @@
 {
-  "name": "nubia",
+  "name": "nubia-vue",
   "version": "1.0.0",
-  "description": "nubia-vue",
+  "description": "A Vue.js project",
   "author": "chenxi19940220 <229168514@qq.com>",
   "private": true,
   "scripts": {
