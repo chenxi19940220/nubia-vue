@@ -182,3 +182,35 @@ export default {
 </style>
 ```
 
+> src/components/header-nav.vue
+
+```
+<car-panel></car-panel>
+
+import carPanel from '@/components/car-panel'
+
+export default {
+  components: {
+    carPanel
+  }
+}
+```
+
+> src/components/car-panel.vue
+
+```
+export default {
+  computed: {
+    carPanelData () {
+      return this.$store.state.carPanelData
+    }
+  }
+}
+
+<li class="clear" v-for="(item, index) in carPanelData" :key="index"></li>
+
+<a href="#/item/100027401">{{item.title}}</a>
+
+<span>{{item.spec_json.show_name}}</span>
+```
+```
