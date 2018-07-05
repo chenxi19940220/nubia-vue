@@ -615,6 +615,7 @@ let store = new Vuex.Store({
 
 > src/components/car-panel.vue
 
+```
 export default {
   methods: {
     showCarHandle () {
