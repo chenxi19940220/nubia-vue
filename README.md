@@ -264,5 +264,35 @@ export default {
 
 ## 购物车商品删除
 
+> src/store/index.js
+
+```
+let store = new Vuex.Store({
+  mutations: {
+    delCarPanelData (state, id) {
+      state.carPanelData.forEach((goods, index) => {
+        if (goods.sku_id === id) {
+          state.carPanelData.splice(index, 1)
+          return id
+        }
+      })
+    }
+  }
+})
+```
+
+> src/components/car-panel.vue
+
+```
+export default {
+  methods: {
+    delCarPanelHandle (id) {
+      this.$store.commit('delCarPanelData', id)
+    }
+  }
+}
+
+<div class="del-btn" @click="delCarPanelHandle(item.sku_id)">删除</div>
+```
 
 
