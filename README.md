@@ -520,3 +520,43 @@ export default {
 
 <div id="prompt" v-if="maxOff"></div>
 ```
+
+> src/store/index.js
+
+```
+let store = new Vuex.Store({
+  state: {
+    carPanelData: [],
+    maxOff: false
+  },
+  mutations: {
+    addCarPanelDate (state, data) {
+      let bOff = true
+      state.carPanelData.forEach((goods) => {
+        if (goods.sku_id === data.sku_id) {
+          goods.count++
+          bOff = false
+          if (goods.count > goods.limit_num) {
+            goods.count--
+            state.maxOff = true
+          }
+        }
+      })
+      if (bOff) {
+        let goodsData = data
+        Vue.set(goodsData, 'count', 1)
+        state.carPanelData.push(goodsData)
+      }
+    },
+    closePrompt (state) {
+      state.maxOff = false
+    }
+  }
+})
+```
+
+> src/components/prompt.vue
+
+```
+
+```
