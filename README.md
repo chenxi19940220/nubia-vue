@@ -237,4 +237,26 @@ let store = new Vuex.Store({
 })
 ```
 
+> src/components/car-panel.vue
+
+```
+export default {
+  computed: {
+    count () {
+      return this.$store.getters.totalCount
+    },
+    total () {
+      return this.$store.getters.totalPrice
+    }
+  }
+}
+
+<p>共 <strong class="ng-binding">{{count}}</strong> 件商品</p>
+
+<h5>合计：
+    <span class="price-icon">¥</span>
+    <span ng-bind="cartMenu.totalPrice" class="price-num ng-binding">{{total}}</span>
+</h5>
+```
+
 
