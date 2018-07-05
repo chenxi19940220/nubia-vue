@@ -615,7 +615,17 @@ let store = new Vuex.Store({
 
 > src/components/car-panel.vue
 
-```
+export default {
+  methods: {
+    showCarHandle () {
+      this.$store.commit('showCar')
+    },
+    hideCarHandle () {
+      this.$store.commit('hideCar')
+    }
+  }
+}
 
+<li class="nav-cart" @mouseenter="showCarHandle" @mouseleave="hideCarHandle"></li>
 ```
 
