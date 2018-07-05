@@ -658,3 +658,18 @@ let store = new Vuex.Store({
   }
 })
 ```
+
+> src/components/car-panel.vue
+
+```
+<div class="empty" v-if="count < 0">
+    <h3>购物车为空</h3>
+    <p>您还没有选购任何商品，现在前往商城选购吧!</p>
+</div>
+
+<div class="full" v-else></div>
+
+<span class="cart-empty-num cart-num" :class="{'cart-num': count > 0}">
+    <i>{{count}}</i>
+</span>
+```
