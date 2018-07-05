@@ -577,4 +577,18 @@ export default {
 <span class="dialog-close png" @click="closePrompt"></span>
 ```
 
+> src/components/car-panel.vue
+
+```
+<div class="nav-cart-wrapper" v-if="carShow"></div>
+
+export default {
+  computed: {
+    carShow () {
+      return this.$store.state.carShow
+    }
+  }
+}
+```
+
 
