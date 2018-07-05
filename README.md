@@ -59,7 +59,7 @@ let store = new Vuex.Store({})
 export default store
 ```
 
-main.js
+> main.js
 
 ```
 import store from './store'
@@ -69,3 +69,28 @@ new Vue({
 })
 ```
 
+> src/store/index.js
+
+```
+let store = new Vuex.Store({
+  state: {
+    carPanelData: []
+  },
+  mutations: {
+    addCarPanelDate (state, data) {
+      let bOff = true
+      state.carPanelData.forEach((goods) => {
+        if (goods.sku_id === data.sku_id) {
+          goods.count++
+          bOff = false
+        }
+      })
+      if (bOff) {
+        let goodsData = data
+        Vue.set(goodsData, 'count', 1)
+        state.carPanelData.push(goodsData)
+      }
+    }
+  }
+})
+```
