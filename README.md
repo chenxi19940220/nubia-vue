@@ -262,4 +262,7 @@ export default {
 <span class="item-num">x {{item.count}}</span>
 ```
 
+## 购物车商品删除
+
+
 
