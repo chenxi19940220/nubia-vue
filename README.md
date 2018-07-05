@@ -295,9 +295,12 @@ export default {
 <div class="del-btn" @click="delCarPanelHandle(item.sku_id)">删除</div>
 ```
 
-```
+
 新建文件prompt.vue
 
+> src/components/prompt.vue
+
+```
 <template>
   <div id="prompt">
     <div class="module-dialog-layer" style="display: block;"></div>
@@ -479,5 +482,41 @@ export default {
 </style>
 ```
 
+> src/views/shop.vue
 
+```
+<prompt></prompt>
 
+import prompt from '@/components/prompt'
+
+export default {
+  components: {
+    prompt
+  }
+}
+```
+
+> src/store/index.js
+
+```
+let store = new Vuex.Store({
+  state: {
+    maxOff: false
+  }
+})
+```
+
+> src/components/prompt.vue
+
+```
+export default {
+  name: 'prompt',
+  computed: {
+    maxOff () {
+      return this.$store.state.maxOff
+    }
+  }
+}
+
+<div id="prompt" v-if="maxOff"></div>
+```
