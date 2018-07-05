@@ -596,7 +596,7 @@ export default {
 ```
 let store = new Vuex.Store({
   state: {
-    carshow: false,
+    carShow: false,
     carTimer: null
   },
   mutations: {
@@ -629,3 +629,32 @@ export default {
 <li class="nav-cart" @mouseenter="showCarHandle" @mouseleave="hideCarHandle"></li>
 ```
 
+> src/store/index.js
+
+```
+let store = new Vuex.Store({
+  mutations: {
+    addCarPanelDate (state, data) {
+      let bOff = true
+      state.carPanelData.forEach((goods) => {
+        if (goods.sku_id === data.sku_id) {
+          goods.count++
+          bOff = false
+          if (goods.count > goods.limit_num) {
+            goods.count--
+            state.maxOff = true
+            return
+          }
+          state.carShow = true
+        }
+      })
+      if (bOff) {
+        let goodsData = data
+        Vue.set(goodsData, 'count', 1)
+        state.carPanelData.push(goodsData)
+        state.carShow = true
+      }
+    }
+  }
+})
+```
