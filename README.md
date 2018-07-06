@@ -1038,6 +1038,15 @@ export default new Router({
 export default {
   data () {
     return {
+      itemId: this.$route.query.itemId,
+    }
+  },
+}
+
+
+export default {
+  data () {
+    return {
       itemsData: []
     }
   },
