@@ -1205,5 +1205,56 @@ let store = new Vuex.Store({
 > src/views/item.vue
 
 ```
+export default {
+  data () {
+    return {
+      count: 1
+    }
+  },
+  methods: {
+    addCarPanelHandle () {
+      let itemData = {info: this.itemInfo, count: this.count}
+      this.$store.commit('addCarPanelDate', itemData)
+    }
+  }
+}
 
+
+<span class="num">{{count}}</span>
+
+export default {
+  methods: {
+    addCount () {
+      this.count++
+      if (this.count > this.itemInfo.limit_num) {
+        this.count = this.itemInfo.limit_num
+      }
+    },
+    subCount () {
+      this.count--
+      if (this.count < 1) {
+        this.count = 1
+      }
+    }
+  }
+}
+
+<div class="item-num js-select-quantity">
+  <span class="down" :class="{'down-disabled': count <=1}" @click="subCount">-</span>
+  <span class="num">{{count}}</span>
+  <span class="up" :class="{'up-disabled': count >= itemInfo.limit_num}" @click="addCount">+</span>
+</div>
+
+
+<prompt></prompt>
+
+import prompt from '@/components/prompt'
+
+export default {
+  components: {
+    prompt
+  }
+}
 ```
+
+
