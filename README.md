@@ -1032,5 +1032,57 @@ export default new Router({
 <router-link :to="{path:'Item', query:{itemId:item.sku_info[itemIndex].sku_id}}">查看详情</router-link>
 ```
 
+> src/views/item.vue
+
+```
+export default {
+  data () {
+    return {
+      itemsData: []
+    }
+  },
+  created: function () {
+    axios.get('https://www.easy-mock.com/mock/5b3cccfe3a326b5fcb8dca26/nubia-vue/newItemsData')
+      .then(response => {
+        console.log(response.data)
+        this.itemsData = response.data
+      })
+      .catch(error => {
+        console.log(error)
+        alert('网络错误，不能访问')
+      })
+  }
+}
+
+
+export default {
+  computed: {
+    itemInfo () {
+      let itemInfo = this.itemsData.filter((item) => {
+        return Number(item.sku_id) === Number(this.itemId)
+      })[0]
+      return itemInfo
+    }
+  }
+}
+
+
+<div class="params-price">
+  <span><em>¥</em><i>{{itemInfo.price}}</i></span>
+</div>
+<div class="params-info">
+  <h4>{{itemInfo.title}}</h4>
+  <h6>{{itemInfo.sub_title}}</h6>
+</div>
+
+
+export default {
+  data () {
+    return {
+      imgIndex: 0
+    }
+  }
+}
+```
 
 
