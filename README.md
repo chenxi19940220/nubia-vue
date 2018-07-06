@@ -1094,10 +1094,63 @@ export default {
 }
 
 
+<div class="thumbnail">
+  <ul>
+    <li :class="{'on':index==imgIndex}" v-for="(img, index) in itemInfo.ali_images" :key="index"><img :src="img"></li>
+  </ul>
+</div>
+<div class="thumb">
+  <ul>
+    <li :class="{'on':index==imgIndex}" v-for="(img, index) in itemInfo.ali_images" :key="index"><img :src="img"></li>
+  </ul>
+</div>
 
 
+<ul class="params-colors">
+  <li :class="{'cur': color.id == $route.query.itemId}" v-for="(color, index) in itemInfo.sku_list" :key="index">
+    <a :title="color.color"><i><img :src="color.image"></i></a>
+  </li>
+</ul>
 ```
 
 ## 商品详情页交互
+
+> src/views/item.vue
+
+```
+export default {
+  methods: {
+    tableImg (index) {
+      this.imgIndex = index
+    }
+  }
+}
+
+<li :class="{'on':index==imgIndex}" @click="tableImg(index)" v-for="(img, index) in itemInfo.ali_images" :key="index"><img :src="img"></li>
+
+
+<router-link :title="color.color" :to="{path: 'Item', query:{itemId:color.id}}"><img :src="color.image"></router-link>
+
+
+export default {
+  watch: {
+    '$route.query.itemId' () {
+      this.itemId = this.$route.query.itemId
+      this.imgIndex = 0
+    }
+  }
+}
+
+
+export default {
+  methods: {
+    addCarPanelHandle () {
+      this.$store.commit('addCarPanelDate', this.itemInfo)
+    }
+  }
+}
+
+<span class="blue-title-btn js-add-cart" @click="addCarPanelHandle"><a>加入购物车</a></span>
+```
 
 
