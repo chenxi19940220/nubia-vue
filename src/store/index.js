@@ -30,11 +30,11 @@ let store = new Vuex.Store({
     addCarPanelDate (state, data) {
       let bOff = true
       state.carPanelData.forEach((goods) => {
-        if (goods.sku_id === data.sku_id) {
-          goods.count++
+        if (goods.sku_id === data.info.sku_id) {
+          goods.count += data.count
           bOff = false
           if (goods.count > goods.limit_num) {
-            goods.count--
+            goods.count -= data.count
             state.maxOff = true
             return
           }
@@ -42,8 +42,8 @@ let store = new Vuex.Store({
         }
       })
       if (bOff) {
-        let goodsData = data
-        Vue.set(goodsData, 'count', 1)
+        let goodsData = data.info
+        Vue.set(goodsData, 'count', data.count)
         state.carPanelData.push(goodsData)
         state.carShow = true
       }

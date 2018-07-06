@@ -200,4 +200,13 @@ export default {
     opacity: 0;
     transition: all .1s ease-out;
 }
+.sku-box .item .item-cover a {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 20;
+    width: 100%;
+    height: 310px;
+}
 </style>
