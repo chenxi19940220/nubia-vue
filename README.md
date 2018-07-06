@@ -1153,4 +1153,57 @@ export default {
 <span class="blue-title-btn js-add-cart" @click="addCarPanelHandle"><a>加入购物车</a></span>
 ```
 
+> src/components/shop-item.vue
 
+```
+export default {
+  methods: {
+    addCarPanelHandle (data) {
+      let itemData = {info: data, count: 1}
+      this.$store.commit('addCarPanelDate', itemData)
+    }
+  }
+}
+```
+
+> src/store/index.js
+
+```
+let store = new Vuex.Store({
+  mutations: {
+    addCarPanelDate (state, data) {
+      let bOff = true
+      state.carPanelData.forEach((goods) => {
+        if (goods.sku_id === data.info.sku_id) {
+        
+          goods.count += data.count
+          
+          bOff = false
+          if (goods.count > goods.limit_num) {
+          
+            goods.count -= data.count
+            
+            state.maxOff = true
+            return
+          }
+          state.carShow = true
+        }
+      })
+      if (bOff) {
+      
+        let goodsData = data.info
+        
+        Vue.set(goodsData, 'count', data.count)
+        
+        state.carPanelData.push(goodsData)
+        state.carShow = true
+      }
+    }
+})
+```
+
+> src/views/item.vue
+
+```
+
+```
