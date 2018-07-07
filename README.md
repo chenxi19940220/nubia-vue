@@ -1,7 +1,16 @@
 # nubia-vue
-基于vue2.0的商城实战开发
 
-## 环境配置及目录结构
+描述
+
+## 写这个项目是为了巩固自己学过的vue2.0相关的知识点，并且记录自己学习的过程。这是一个基于vue2.0的商城开发，主要有商品列表页 商品详情页，数据是使用easy-mock模拟的。
+
+主要技术栈：<br/>
+- vue2.0
+- vue-router
+- vuex
+- axios
+
+### 环境配置及目录结构
 
 > 搭建环境
 
@@ -27,8 +36,6 @@ src/assets    样式文件和图片
 
 src/components   组件
 
-src/lib   模拟数据
-
 src/router   路由配置文件
 
 src/store   vuex相关文件
@@ -36,13 +43,13 @@ src/store   vuex相关文件
 src/views   所有的单页面
 
 
-## 商品列表页的布局
+### 商品列表页的布局
 
-## 商品列表套数据
+### 商品列表套数据
 
-## 商品页组件
+### 商品页组件
 
-## 商品加入购物车
+### 商品加入购物车
 
 新增store文件夹，新增文件index.js
 
@@ -262,7 +269,7 @@ export default {
 <span class="item-num">x {{item.count}}</span>
 ```
 
-## 购物车商品删除
+### 购物车商品删除
 
 > src/store/index.js
 
@@ -675,7 +682,7 @@ let store = new Vuex.Store({
 </span>
 ```
 
-## 商品详情页数据
+### 商品详情页数据
 
 > src/views/item.vue
 
@@ -1113,7 +1120,7 @@ export default {
 </ul>
 ```
 
-## 商品详情页交互
+### 商品详情页交互
 
 > src/views/item.vue
 
