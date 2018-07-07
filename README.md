@@ -28,7 +28,7 @@ cnpm install vuex --save  安装vuex
 
 > 文件目录
 
-src
+src  //前端主要开发目录
 
 src/assets    样式文件和图片
 - src/assets/css   
@@ -42,12 +42,202 @@ src/store   vuex相关文件
 
 src/views   所有的单页面
 
+## 详细过程
 
 ### 商品列表页的布局
 
+> 主要为两部分：导航部分和商品列表页。
+
+1. 因为导航部分会出现在所有的页面当中，所以把它做成一个公共的部分，就是一个公共的组件。
+    
+2. 下方的列表就用router去写链接对应的页面。
+
+> App.vue
+
+```
+<header-nav></header-nav>
+
+import headerNav from '@/components/header-nav'
+
+export default {
+  components: {
+    headerNav
+  }
+}
+```
+
+
+> src/router/index.js
+
+```
+import '@/assets/css/reset.css'
+import '@/assets/css/header.css'
+```
+
+
+> src/router/index.js
+
+```
+import Shop from '@/views/shop'
+
+export default new Router({
+  mode: 'history',
+  routes: [
+    {
+      path: '/',
+      name: 'Shop',
+      component: Shop
+    }
+  ]
+})
+```
+
+
 ### 商品列表套数据
 
+> views/shop.vue
+
+通过axios请求数据，然后拿到数据。
+
+```
+export default {
+  data () {
+    return {
+      goodsData: []
+    }
+  },
+  created: function () {
+    axios.get('https://www.easy-mock.com/mock/5b3cccfe3a326b5fcb8dca26/nubia-vue/newGoodsData')
+      .then(response => {
+        console.log(response.data)
+        this.goodsData = response.data
+      })
+      .catch(error => {
+        console.log(error)
+        alert('网络错误，不能访问')
+      })
+  }
+}
+
+
+<div class="item" v-for="item in goodsData" :key="item.id" :item="item"></div>
+
+
+<div class="item-img">
+  <img :src="item.sku_info[itemIndex].ali_image" :alt="item.name">
+  <h6>{{item.name}}</h6>
+  <h3>{{item.name_title}}</h3>
+</div>
+
+
+<div class="item-price clearfix">
+  <i>¥</i><span>{{item.price}}</span>
+</div>
+
+
+// 把颜色图片渲染出来
+<ul class="colors-list">
+  <li v-for="(sku,index) in item.sku_info" :key="index">
+    <a href="javascript:;" :class="{'active': index === itemIndex}" @click="tableIndex(index)">
+      <img :src="sku.spec_json.image">
+    </a>
+  </li>
+</ul>
+```
+
+当es-lint报错的时候可以查询相关信息
+
+> Eslint 规则说明
+
+- https://blog.csdn.net/helpzp2008/article/details/51507428
+
+> Eslint中文官网规则
+
+- https://cn.eslint.org/docs/4.0.0/rules/
+
+
 ### 商品页组件
+
+主要用到了组件之间值的传递，父级组件向子级组件传递数据要用到props。
+
+因为很多页面都会用到商品这个列表，所以把它做成一个组件
+
+> views/shop.vue
+
+```
+<shop-item v-for="item in goodsData" :key="item.id"></shop-item>
+```
+
+
+> views/shop.vue
+
+```
+import shopItem from '@/components/shop-item'
+
+export default {
+  components: {
+    shopItem
+  }
+}
+```
+
+
+> views/shop.vue
+
+```
+:item="item"  // 把数据传过去
+
+<shop-item v-for="item in goodsData" :key="item.id" :item="item"></shop-item>
+```
+
+
+然后在子组件接收
+
+> components/shop-item.vue
+
+```
+export default {
+  props: {
+    item: {
+      type: Object
+    }
+  }
+}
+```
+
+做一个选择颜色的方法，只要在数据中拿到点击的是第几个按钮
+
+> components/shop-item.vue
+
+```
+export default {
+  data () {
+    return {
+      itemIndex: 0
+    }
+  }
+}
+
+// 当点击的时候去使用tableIndex，把它的当前的index值，就是循环的这个值，传进来
+<a href="javascript:;" @click="tableIndex(index)">
+  <img :src="sku.spec_json.image">
+</a>
+
+export default {
+  // 它的index值传过来以后，只要让当前的this.itemIndex的值等于index的值就行
+  methods: {
+    tableIndex (index) {
+      this.itemIndex = index
+    }
+  }
+}
+
+// 当index等于当前点击的itemIndex的时候，加上active这个class
+<a href="javascript:;" :class="{'active': index === itemIndex}" @click="tableIndex(index)">
+  <img :src="sku.spec_json.image">
+</a>
+```
+
 
 ### 商品加入购物车
 
@@ -66,6 +256,7 @@ let store = new Vuex.Store({})
 export default store
 ```
 
+
 > main.js
 
 ```
@@ -75,6 +266,7 @@ new Vue({
   store
 })
 ```
+
 
 > src/store/index.js
 
@@ -102,6 +294,7 @@ let store = new Vuex.Store({
 })
 ```
 
+
 > src/components/shop-item.vue
 
 ```
@@ -119,7 +312,9 @@ export default {
 <span class="item-blue-btn" @click="addCarPanelHandle(item.sku_info[itemIndex])">加入购物车 </span>
 ```
 
+
 新增car-panel.vue文件
+
 > src/components/car-panel.vue
 
 ```
@@ -189,6 +384,7 @@ export default {
 </style>
 ```
 
+
 > src/components/header-nav.vue
 
 ```
@@ -202,6 +398,7 @@ export default {
   }
 }
 ```
+
 
 > src/components/car-panel.vue
 
@@ -220,6 +417,7 @@ export default {
 
 <span>{{item.spec_json.show_name}}</span>
 ```
+
 
 > src/store/index.js
 
@@ -243,6 +441,7 @@ let store = new Vuex.Store({
   }
 })
 ```
+
 
 > src/components/car-panel.vue
 
@@ -269,6 +468,7 @@ export default {
 <span class="item-num">x {{item.count}}</span>
 ```
 
+
 ### 购物车商品删除
 
 > src/store/index.js
@@ -287,6 +487,7 @@ let store = new Vuex.Store({
   }
 })
 ```
+
 
 > src/components/car-panel.vue
 
@@ -489,6 +690,7 @@ export default {
 </style>
 ```
 
+
 > src/views/shop.vue
 
 ```
@@ -503,6 +705,7 @@ export default {
 }
 ```
 
+
 > src/store/index.js
 
 ```
@@ -512,6 +715,7 @@ let store = new Vuex.Store({
   }
 })
 ```
+
 
 > src/components/prompt.vue
 
@@ -527,6 +731,7 @@ export default {
 
 <div id="prompt" v-if="maxOff"></div>
 ```
+
 
 > src/store/index.js
 
@@ -562,6 +767,7 @@ let store = new Vuex.Store({
 })
 ```
 
+
 > src/components/prompt.vue
 
 ```
@@ -584,6 +790,7 @@ export default {
 <span class="dialog-close png" @click="closePrompt"></span>
 ```
 
+
 > src/components/car-panel.vue
 
 ```
@@ -597,6 +804,7 @@ export default {
   }
 }
 ```
+
 
 > src/store/index.js
 
@@ -620,6 +828,7 @@ let store = new Vuex.Store({
 })
 ```
 
+
 > src/components/car-panel.vue
 
 ```
@@ -636,6 +845,7 @@ export default {
 
 <li class="nav-cart" @mouseenter="showCarHandle" @mouseleave="hideCarHandle"></li>
 ```
+
 
 > src/store/index.js
 
@@ -667,6 +877,7 @@ let store = new Vuex.Store({
 })
 ```
 
+
 > src/components/car-panel.vue
 
 ```
@@ -681,6 +892,7 @@ let store = new Vuex.Store({
     <i>{{count}}</i>
 </span>
 ```
+
 
 ### 商品详情页数据
 
@@ -1014,6 +1226,7 @@ export default {
 </style>
 ```
 
+
 > src/store/index.js
 
 ```
@@ -1031,6 +1244,7 @@ export default new Router({
 })
 ```
 
+
 > src/components/shop-item.vue
 
 ```
@@ -1038,6 +1252,7 @@ export default new Router({
 
 <router-link :to="{path:'Item', query:{itemId:item.sku_info[itemIndex].sku_id}}">查看详情</router-link>
 ```
+
 
 > src/views/item.vue
 
@@ -1120,6 +1335,7 @@ export default {
 </ul>
 ```
 
+
 ### 商品详情页交互
 
 > src/views/item.vue
@@ -1160,6 +1376,7 @@ export default {
 <span class="blue-title-btn js-add-cart" @click="addCarPanelHandle"><a>加入购物车</a></span>
 ```
 
+
 > src/components/shop-item.vue
 
 ```
@@ -1172,6 +1389,7 @@ export default {
   }
 }
 ```
+
 
 > src/store/index.js
 
@@ -1208,6 +1426,7 @@ let store = new Vuex.Store({
     }
 })
 ```
+
 
 > src/views/item.vue
 
